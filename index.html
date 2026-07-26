@@ -343,6 +343,9 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
 
 <!-- HERO -->
 <div class="hero" id="hero">
+  <div class="hslide active"><img src="assets/rivals-night-2.jpg" fetchpriority="high"
+       style="object-position:center 22%"
+       alt="Matthew McConaughey in aged workwear beside a pickup truck at a gas station at night"></div>
   <div class="hero-caption">
     <span class="mono eyebrow reveal d1" id="h-eyebrow">Costume Design — Feature Film</span>
     <h1 class="reveal d2" id="h-title">The Rivals of <em>Amziah King</em></h1>
@@ -722,13 +725,12 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
      credit:'Independent&nbsp;&nbsp;—&nbsp;&nbsp;2025'},
   ];
   const hero = $('#hero'), caption = $('.hero-caption');
-  HERO.forEach((s, i) => {
+  // frame 1 is already in the markup (so the hero survives with JS disabled);
+  // the rest are built here and stay unfetched until the page goes idle
+  HERO.slice(1).forEach(s => {
     const d = document.createElement('div');
     d.className = 'hslide';
-    // only the first frame loads up front; the rest arrive once the page is idle
-    d.innerHTML = i === 0
-      ? `<img src="${s.img}" alt="${s.alt}" style="object-position:${s.pos}" fetchpriority="high">`
-      : `<img data-src="${s.img}" alt="${s.alt}" style="object-position:${s.pos}" loading="lazy" decoding="async">`;
+    d.innerHTML = `<img data-src="${s.img}" alt="${s.alt}" style="object-position:${s.pos}" loading="lazy" decoding="async">`;
     hero.insertBefore(d, caption);
   });
   const hslides = [...hero.querySelectorAll('.hslide')];
