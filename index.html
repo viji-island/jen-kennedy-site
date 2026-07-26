@@ -774,18 +774,20 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     btn.setAttribute('aria-controls', panel.id);
     if (!w.classList.contains('open')) panel.setAttribute('inert', '');
   });
-  const swapIn = root => root.querySelectorAll('img[data-src]').forEach(im => {
+  // urgent = the visitor asked for this row, so it must jump the warm-up queue
+  const swapIn = (root, urgent) => root.querySelectorAll('img[data-src]').forEach(im => {
+    if (urgent) im.fetchPriority = 'high';
     im.src = im.dataset.src; im.removeAttribute('data-src');
   });
   function setOpen(wrap, open){
-    if (open) swapIn(wrap);
+    if (open) swapIn(wrap, true);
     wrap.classList.toggle('open', open);
     wrap.querySelector('.row').setAttribute('aria-expanded', String(open));
     const panel = wrap.querySelector('.exp');
     open ? panel.removeAttribute('inert') : panel.setAttribute('inert', '');
   }
   index.addEventListener('pointerover', () => index.classList.remove('demo'), {once:true});
-  wraps.forEach(w => w.addEventListener('pointerenter', () => swapIn(w), {once:true}));
+  wraps.forEach(w => w.addEventListener('pointerenter', () => swapIn(w, true), {once:true}));
   wraps.forEach(wrap => wrap.querySelector('.row').addEventListener('click', e => {
     if (e.target.closest('.trailer-link')) return;
     index.classList.remove('demo');
@@ -874,7 +876,20 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
 
   /* warm the gallery once the first screen is done, so hovers and opens feel instant */
   addEventListener('load', () => {
-    const warm = () => swapIn(document);
+    // fetch the rest a few at a time: 28 parallel requests would starve whatever
+    // the visitor actually opens first
+    const warm = () => {
+      const queue = [...document.querySelectorAll('img[data-src]')];
+      const next = () => {
+        const im = queue.shift();
+        if (!im) return;
+        if (!im.dataset.src) return next();
+        im.addEventListener('load', next, {once:true});
+        im.addEventListener('error', next, {once:true});
+        im.src = im.dataset.src; im.removeAttribute('data-src');
+      };
+      for (let i = 0; i < 3; i++) next();
+    };
     'requestIdleCallback' in window ? requestIdleCallback(warm, {timeout:2500}) : setTimeout(warm, 1200);
   });
 </script>
