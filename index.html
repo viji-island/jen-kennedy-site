@@ -777,6 +777,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   // urgent = the visitor asked for this row, so it must jump the warm-up queue
   const swapIn = (root, urgent) => root.querySelectorAll('img[data-src]').forEach(im => {
     if (urgent) im.fetchPriority = 'high';
+    im.loading = 'eager';            // an off-screen lazy image ignores a new src, so opt out first
     im.src = im.dataset.src; im.removeAttribute('data-src');
   });
   function setOpen(wrap, open){
@@ -884,8 +885,12 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
         const im = queue.shift();
         if (!im) return;
         if (!im.dataset.src) return next();
-        im.addEventListener('load', next, {once:true});
-        im.addEventListener('error', next, {once:true});
+        let moved = false;
+        const step = () => { if (moved) return; moved = true; clearTimeout(t); next(); };
+        const t = setTimeout(step, 5000);   // never let one slow image stall the queue
+        im.addEventListener('load', step, {once:true});
+        im.addEventListener('error', step, {once:true});
+        im.loading = 'eager';
         im.src = im.dataset.src; im.removeAttribute('data-src');
       };
       for (let i = 0; i < 3; i++) next();
