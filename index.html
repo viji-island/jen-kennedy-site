@@ -256,7 +256,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   #lightbox .frame{width:min(1100px,100%);aspect-ratio:16/9;background:#000;box-shadow:0 40px 120px rgba(0,0,0,.8)}
   #lightbox iframe{width:100%;height:100%;border:0}
   #lightbox .close{
-    position:absolute;top:26px;right:40px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+    position:absolute;top:max(26px,env(safe-area-inset-top));right:40px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;
     text-transform:uppercase;color:var(--ink-dim);background:none;border:0;cursor:pointer;
   }
   #lightbox .close:hover{color:var(--amber)}
@@ -292,9 +292,29 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     .reveal{animation:none;opacity:1;transform:none}
   }
 
+  /* touch devices: no hover previews, no hover dimming — keyed to the pointer,
+     not the viewport, so a landscape phone doesn't get desktop behaviour */
+  @media (hover:none),(pointer:coarse){
+    .peek{display:none}
+    .index:has(.row:hover) .row{opacity:1}
+    .index.demo .row{opacity:1}
+  }
+
+  /* short viewports (landscape phones): the 620px hero minimum pushed the
+     title and trailer link below the fold */
+  @media (max-height:540px){
+    .hero{min-height:0}
+    .hero-caption{bottom:22px}
+    .hero-caption h1{font-size:clamp(26px,7vh,44px)}
+    .hero-caption .eyebrow{margin-bottom:8px}
+    .hero-meta{margin-top:10px}
+    .section-head{padding-top:56px}
+    #lightbox{padding:3vw}
+  }
+
   /* ---------- mobile ---------- */
   @media (max-width:760px){
-    header{padding:18px 20px}
+    header{padding:18px max(20px,env(safe-area-inset-right)) 18px max(20px,env(safe-area-inset-left))}
     .wordmark{letter-spacing:.2em;font-size:11.5px}
     nav{gap:13px}
     nav a{font-size:9.5px;letter-spacing:.1em}
@@ -303,17 +323,13 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     .hero-caption .credit{font-size:9.5px;letter-spacing:.1em}
     .hero-meta{gap:12px 20px;margin-top:16px}
     .trailer-link{font-size:10px;letter-spacing:.12em}
-    .hero-index{display:none}
+    .hero-index{bottom:auto;top:max(56px,calc(env(safe-area-inset-top) + 46px));right:20px;font-size:10px}
     .section-head{flex-wrap:wrap;gap:6px 14px;padding-top:84px}
     .mono{font-size:10px}
     section{padding:0 20px}
     .row{grid-template-columns:34px 1fr;grid-template-rows:auto auto;row-gap:8px;padding:20px 0}
     .row .studio{grid-column:2}
     .row .year{display:none}
-    .peek{display:none}
-    .index:hover .row{opacity:1}
-    .index.demo .row{opacity:1}
-    .row.demo-hover .title{color:var(--ink);font-style:normal;font-weight:300}
     .exp-grid{grid-template-columns:1fr;gap:26px;padding:4px 0 34px 34px}
     .exp-stills{grid-template-columns:1fr}
     .about{padding:110px 20px 0}
@@ -322,9 +338,20 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     .foot-grid{grid-template-columns:1fr;gap:34px}
     .signature{margin-top:64px}
     .colophon{flex-direction:column;gap:8px}
-    #lightbox .close{top:16px;right:20px}
+    #lightbox .close{top:max(16px,env(safe-area-inset-top));right:max(20px,env(safe-area-inset-right))}
   }
 </style>
+<noscript><style>
+  /* without JS nothing reveals .sr, so About and the agent's contact details
+     would stay invisible; open the panels for their text and drop the
+     JS-dependent affordances (deferred images, hover peeks, trailer buttons) */
+  .sr{opacity:1;transform:none}
+  #ident{display:none}
+  .exp{grid-template-rows:1fr}
+  .fact{opacity:1;transform:none}
+  .exp-stills,.cast,.peek,.exp .trailer-link,#h-next,.hero-meta .trailer-link{display:none}
+  .index.demo .row{opacity:.9}
+</style></noscript>
 </head>
 <body>
 
@@ -480,10 +507,6 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
               <div class="fact"><span class="k">Role</span><span class="v">Costume Designer</span></div>
               <div class="fact"><span class="k">Status</span><span class="v">In production</span></div>
             </div>
-            <div class="cast">
-              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg" style="object-position:16% 18%" alt="Cast portrait, Parachute"></div><div class="nm">Cast</div></div>
-              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg" style="object-position:80% 18%" alt="Cast portrait, Parachute"></div><div class="nm">Cast</div></div>
-            </div>
           </div>
         </div>
       </div>
@@ -558,8 +581,6 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
         </div>
       </div>
     </div>
-
-  </div>
 
     <div id="lessons-in-chemistry" class="row-wrap">
       <button class="row" aria-expanded="false">
@@ -654,7 +675,6 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
       </div>
     </div>
 
-
   </div>
 </section>
 
@@ -739,20 +759,34 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   $('#h-total').textContent = String(HERO.length).padStart(2, '0');
   let hIdx = 0, hTimer = null;
 
-  function heroGo(n, animate){
-    hIdx = (n + HERO.length) % HERO.length;
-    const s = HERO[hIdx];
+  function heroShow(i){
+    const s = HERO[i];
+    hIdx = i;
     hslides.forEach((el, k) => {
-      el.classList.toggle('active', k === hIdx);
-      if (k === hIdx) { const im = el.querySelector('img[data-src]'); if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); } }
+      el.classList.toggle('active', k === i);
+      el.setAttribute('aria-hidden', k === i ? 'false' : 'true');
     });
     hEyebrow.innerHTML = s.eyebrow; hTitle.innerHTML = s.title; hCredit.innerHTML = s.credit;
     hTrailer.hidden = !s.yt;
     if (s.yt) { hTrailer.dataset.yt = s.yt; hTrailer.setAttribute('aria-label', 'Watch the trailer'); }
-    hNum.textContent = String(hIdx + 1).padStart(2, '0');
-    if (animate && !reduced) caption.animate(
-      [{opacity:0, transform:'translateY(12px)'}, {opacity:1, transform:'translateY(0)'}],
-      {duration:800, delay:400, easing:'cubic-bezier(.2,.6,.2,1)', fill:'backwards'});
+    hNum.textContent = String(i + 1).padStart(2, '0');
+  }
+  // never cut to a frame that has no decoded pixels yet — that flashes black
+  function heroGo(n, animate){
+    const i = (n + HERO.length) % HERO.length;
+    const im = hslides[i].querySelector('img');
+    if (im.dataset.src) { im.loading = 'eager'; im.src = im.dataset.src; im.removeAttribute('data-src'); }
+    const show = () => {
+      heroShow(i);
+      if (animate && !reduced) caption.animate(
+        [{opacity:0, transform:'translateY(12px)'}, {opacity:1, transform:'translateY(0)'}],
+        {duration:800, delay:400, easing:'cubic-bezier(.2,.6,.2,1)', fill:'backwards'});
+    };
+    if (im.complete && im.naturalWidth) return show();
+    (im.decode ? im.decode() : Promise.reject()).then(show).catch(() => {
+      im.addEventListener('load', show, {once:true});
+      im.addEventListener('error', show, {once:true});
+    });
   }
   const heroStart = () => { if (!flat && !reduced) { clearInterval(hTimer); hTimer = setInterval(() => heroGo(hIdx + 1, true), 6400); } };
   const heroStop  = () => clearInterval(hTimer);
@@ -775,10 +809,13 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     if (!w.classList.contains('open')) panel.setAttribute('inert', '');
   });
   // urgent = the visitor asked for this row, so it must jump the warm-up queue
-  const swapIn = (root, urgent) => root.querySelectorAll('img[data-src]').forEach(im => {
+  // keep data-src intact so a failed image can be retried on the next open/hover
+  const swapIn = (root, urgent) => root.querySelectorAll('img[data-src]:not([data-done])').forEach(im => {
     if (urgent) im.fetchPriority = 'high';
     im.loading = 'eager';            // an off-screen lazy image ignores a new src, so opt out first
-    im.src = im.dataset.src; im.removeAttribute('data-src');
+    im.dataset.done = '1';
+    im.addEventListener('error', () => im.removeAttribute('data-done'), {once:true});
+    im.src = im.dataset.src;
   });
   function setOpen(wrap, open){
     if (open) swapIn(wrap, true);
@@ -846,8 +883,10 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     document.body.style.left = ''; document.body.style.right = ''; document.body.style.width = '';
     scrollTo(0, lockedY);
   }
+  const pageParts = () => [...document.body.children].filter(el => el.id !== 'lightbox');
   function openLb(id, trigger){
     lastFocus = trigger || document.activeElement;
+    pageParts().forEach(el => el.setAttribute('inert', ''));
     yt.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     lb.hidden = false; lb.classList.add('on');
     lockScroll(); heroStop(); lbClose.focus();
@@ -855,6 +894,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   function closeLb(){
     if (lb.hidden) return;
     lb.classList.remove('on'); lb.hidden = true;
+    pageParts().forEach(el => el.removeAttribute('inert'));
     yt.removeAttribute('src');
     unlockScroll(); heroStart();
     if (lastFocus && lastFocus.isConnected) lastFocus.focus({preventScroll:true});
@@ -875,27 +915,13 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   $('#yr').textContent = new Date().getFullYear();
   setTimeout(() => { const el = $('#ident'); el && el.remove(); }, 1700);
 
-  /* warm the gallery once the first screen is done, so hovers and opens feel instant */
+  /* fill only the row that is already open; everything else loads when the
+     visitor asks for it. Warming all 25 images cost every visitor ~3.7MB. */
   addEventListener('load', () => {
-    // fetch the rest a few at a time: 28 parallel requests would starve whatever
-    // the visitor actually opens first
-    const warm = () => {
-      const queue = [...document.querySelectorAll('img[data-src]')];
-      const next = () => {
-        const im = queue.shift();
-        if (!im) return;
-        if (!im.dataset.src) return next();
-        let moved = false;
-        const step = () => { if (moved) return; moved = true; clearTimeout(t); next(); };
-        const t = setTimeout(step, 5000);   // never let one slow image stall the queue
-        im.addEventListener('load', step, {once:true});
-        im.addEventListener('error', step, {once:true});
-        im.loading = 'eager';
-        im.src = im.dataset.src; im.removeAttribute('data-src');
-      };
-      for (let i = 0; i < 3; i++) next();
-    };
-    'requestIdleCallback' in window ? requestIdleCallback(warm, {timeout:2500}) : setTimeout(warm, 1200);
+    const openRow = document.querySelector('.row-wrap.open');
+    if (!openRow) return;
+    const fill = () => swapIn(openRow);
+    'requestIdleCallback' in window ? requestIdleCallback(fill, {timeout:2000}) : setTimeout(fill, 800);
   });
 </script>
 
