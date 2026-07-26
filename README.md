@@ -6,13 +6,22 @@ no third-party requests (fonts are self-hosted; YouTube loads only when a traile
 ## Local preview
     python3 -m http.server 8080     # then open http://localhost:8080
 
+## Live preview
+https://viji-island.github.io/jen-kennedy-site/ — shareable anywhere, auto-updates on push.
+Preview hosts inject `noindex` at runtime so they can never outrank the real domain.
+
 ## Deploy
 - **Vercel** (recommended): import this repo at vercel.com, framework preset "Other". `vercel.json`
   already sets caching + security headers.
 - **Netlify**: `netlify.toml` is equivalent; or drag the folder to app.netlify.com/drop.
-- **Domain**: jenkennedycostumedesign.com is registered with Squarespace Domains (paid through
-  May 2027). Going live = pointing its A / CNAME records at the host. No transfer needed.
-  Cancel the Squarespace *website* subscription afterwards; the domain registration is separate.
+- **GitHub Pages** (already running, zero extra accounts): add a `CNAME` file with the domain,
+  then point DNS at GitHub. Free HTTPS. Trade-off: Pages ignores `vercel.json`, so no CSP or
+  cache headers, and the repo must stay public.
+
+**Domain**: jenkennedycostumedesign.com is registered with Squarespace Domains, paid through
+May 2027. Going live = repointing its A / CNAME records at the chosen host. No transfer, no
+repurchase, existing links keep working. Cancel the Squarespace *website* subscription
+afterwards — the domain registration is a separate product and survives.
 
 ## Conventions
 - Every project row has a stable id, so `/#his-and-hers` opens that project directly — handy for
