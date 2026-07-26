@@ -1,25 +1,31 @@
-# Jen Kennedy — Costume Design portfolio
+# Jen Kennedy — Costume Design
 
-Self-contained static site. No build step, no dependencies: `index.html` + `assets/`.
-Only external requests: Google Fonts (Fraunces, Fragment Mono) and YouTube (trailer lightbox, on demand).
+Static portfolio site. One `index.html`, one `assets/` folder, no build step, no dependencies,
+no third-party requests (fonts are self-hosted; YouTube loads only when a trailer is opened).
 
 ## Local preview
-    python3 -m http.server 8080
-    # then open http://localhost:8080
+    python3 -m http.server 8080     # then open http://localhost:8080
 
-## Deploy (choose one)
-- **Vercel**: `npx vercel --prod` from this folder (needs a Vercel login).
-- **Netlify**: drag this folder into https://app.netlify.com/drop (no CLI needed).
-- **GitHub Pages**: push repo, enable Pages on main branch, root folder.
+## Deploy
+- **Vercel** (recommended): import this repo at vercel.com, framework preset "Other". `vercel.json`
+  already sets caching + security headers.
+- **Netlify**: `netlify.toml` is equivalent; or drag the folder to app.netlify.com/drop.
+- **Domain**: jenkennedycostumedesign.com is registered with Squarespace Domains (paid through
+  May 2027). Going live = pointing its A / CNAME records at the host. No transfer needed.
+  Cancel the Squarespace *website* subscription afterwards; the domain registration is separate.
 
-Then point the domain's A/CNAME records at the host, per its dashboard instructions.
+## Conventions
+- Every project row has a stable id, so `/#his-and-hers` opens that project directly — handy for
+  sending a producer straight to one credit.
+- `?flat` renders without motion and with a fixed hero height, for clean screenshots.
+- Below-hero images carry `data-src` and are swapped in on row open, row hover, or page idle.
+  Only the hero image is on the critical path.
+- Preview hosts (github.io etc.) inject `noindex` at runtime so they can never outrank the real
+  domain. The allowlist lives in the head script — update it if the production domain changes.
 
-## Content status (2026-07-20)
-- Rivals of Amziah King release year set to 2027 per Jen (official sources said Aug 2026 — confirm).
-- Parachute cast cards intentionally unnamed (casting unverified publicly; possible embargo).
-- Tell Me a Secret cast portraits pending from Jen.
-- IMDb / Instagram footer links are placeholders.
-- About page, project subpages, and Jen's portrait: next phase.
-
-## Capture mode
-Append `?flat` for screenshot-friendly rendering (fixed hero height, no motion).
+## Content still owed by Jen
+- Confirm The Rivals of Amziah King release year (site says 2027; public sources said Aug 2026).
+- Parachute cast: names for the two portraits, and whether the casting may be shown publicly.
+- Tell Me a Secret: the two cast portraits.
+- About: a portrait of Jen and two lines of bio.
+- Verify the IMDb profile linked in the footer is hers.
