@@ -77,9 +77,6 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
 
   .mono{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
 
-  /* scroll progress */
-  #progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--amber);z-index:70;transition:width .1s linear}
-
   /* preloader ident */
   #ident{
     position:fixed;inset:0;z-index:80;background:var(--bg);
@@ -224,6 +221,10 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   .cast .card img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.92);transition:filter .5s}
   .cast .card:hover img{filter:grayscale(0) contrast(1) brightness(1)}
   .cast .card .nm{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:9px;line-height:1.6}
+  .cast .card .nm .role{color:var(--amber)}
+  .facts .cast{margin-top:10px}
+  .facts .cast .card{width:118px}
+  .facts .cast .card .ph{width:118px;height:146px}
 
   /* ---------- about strip ---------- */
   .about{padding:150px 40px 0;max-width:1020px}
@@ -358,7 +359,6 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
 
 <a class="skip" href="#work">Skip to work</a>
 <div id="ident"><span>Jen Kennedy</span></div>
-<div id="progress"></div>
 
 <header>
   <a class="wordmark" href="#hero">Jen&nbsp;Kennedy</a>
@@ -378,7 +378,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     <span class="mono eyebrow reveal d1" id="h-eyebrow">Costume Design — Feature Film</span>
     <h1 class="reveal d2" id="h-title">The Rivals of <em>Amziah King</em></h1>
     <div class="hero-meta reveal d3">
-      <span class="mono credit" id="h-credit">Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas 2027</span>
+      <span class="mono credit" id="h-credit">Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026</span>
       <button class="trailer-link" id="h-trailer" data-yt="ygWCRqmH0Ts"><span class="tri"></span>Watch trailer</button>
     </div>
   </div>
@@ -400,7 +400,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
         <span class="no">01</span>
         <span class="title">The Rivals of Amziah King</span>
         <span class="studio">Heyday / Black Bear</span>
-        <span class="year">2027</span>
+        <span class="year">2026</span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -409,8 +409,12 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
               <div class="fact"><span class="k">Role</span><span class="v">Costume Designer</span></div>
               <div class="fact"><span class="k">Director</span><span class="v">Andrew Patterson</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Matthew McConaughey<br>Angelina LookingGlass · Kurt Russell</span></div>
-              <div class="fact"><span class="k">Release</span><span class="v">In cinemas 2027</span></div>
+              <div class="fact"><span class="k">Release</span><span class="v">In cinemas August 14, 2026</span></div>
               <button class="trailer-link" data-yt="ygWCRqmH0Ts"><span class="tri"></span>Watch trailer</button>
+              <div class="cast">
+                <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-mcconaughey.jpg" alt="Matthew McConaughey"></div><div class="nm">Matthew McConaughey</div></div>
+                <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-russell.jpg" alt="Kurt Russell"></div><div class="nm">Kurt Russell</div></div>
+              </div>
             </div>
             <div class="exp-stills">
               <figure><img loading="lazy" decoding="async" data-src="assets/rivals-night-1.jpg" alt="Matthew McConaughey lying on a picnic table with a mandolin outside a lit roadside diner at night, The Rivals of Amziah King"></figure>
@@ -438,7 +442,8 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
               <div class="fact"><span class="k">Status</span><span class="v">In production — Netflix limited series</span></div>
             </div>
             <div class="cast">
-              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/gow-cast.jpg" style="object-position:100% 28%;transform:scale(1.8);transform-origin:88% 26%" alt="Maya Hawke, who stars in The God of the Woods"></div><div class="nm">Maya Hawke</div></div>
+              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-hawke.jpg" alt="Maya Hawke"></div><div class="nm">Maya Hawke</div></div>
+              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-condon.jpg" alt="Kerry Condon"></div><div class="nm">Kerry Condon</div></div>
             </div>
           </div>
         </div>
@@ -507,6 +512,10 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
             <div class="facts">
               <div class="fact"><span class="k">Role</span><span class="v">Costume Designer</span></div>
               <div class="fact"><span class="k">Status</span><span class="v">In production</span></div>
+            </div>
+            <div class="cast">
+              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg" style="object-position:16% 18%" alt="Cast portrait, Parachute"></div><div class="nm">Cast</div></div>
+              <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg" style="object-position:80% 18%" alt="Cast portrait, Parachute"></div><div class="nm">Cast</div></div>
             </div>
           </div>
         </div>
@@ -731,7 +740,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     {img:'assets/rivals-night-2.jpg', pos:'center 22%', yt:'ygWCRqmH0Ts',
      alt:'Matthew McConaughey in aged workwear beside a pickup truck at a gas station at night',
      eyebrow:'Costume Design — Feature Film', title:'The Rivals of <em>Amziah King</em>',
-     credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas 2027'},
+     credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
     {img:'assets/hisher-1.jpg', pos:'center 20%', yt:'tdf4bU58OzQ',
      alt:'An actor in a red wool suit and orange turtleneck seated at a desk',
      eyebrow:'Assistant Costume Design — Limited Series', title:'His &amp; <em>Hers</em>',
@@ -835,6 +844,18 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     if (!wasOpen) {
       setOpen(wrap, true);
       if (wrap.id) history.replaceState(null, '', '#' + wrap.id);
+      // keep the opened project readable: once the panels finish animating
+      // (the one closing above shifts layout too), glide its title under the header
+      const settle = () => wrap.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+      if (reduced) settle();
+      else {
+        const panel = wrap.querySelector('.exp');
+        let doneScroll = false;
+        const go = () => { if (doneScroll) return; doneScroll = true; panel.removeEventListener('transitionend', onEnd); settle(); };
+        const onEnd = e => { if (e.propertyName === 'grid-template-rows') go(); };
+        panel.addEventListener('transitionend', onEnd);
+        setTimeout(go, 650);
+      }
     } else if (location.hash) {
       history.replaceState(null, '', location.pathname);
     }
@@ -851,13 +872,9 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     }
   }
 
-  /* ---------- header, progress bar, nav state ---------- */
-  const hdr = document.querySelector('header'), bar = $('#progress');
-  addEventListener('scroll', () => {
-    hdr.classList.toggle('scrolled', scrollY > 80);
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
-  }, {passive:true});
+  /* ---------- header, nav state ---------- */
+  const hdr = document.querySelector('header');
+  addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 80), {passive:true});
 
   const navLinks = [...document.querySelectorAll('nav a')];
   const spy = new IntersectionObserver(es => es.forEach(e => {

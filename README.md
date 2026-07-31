@@ -35,17 +35,19 @@ afterwards — the domain registration is a separate product and survives.
   domain. The allowlist lives in the head script — update it if the production domain changes.
 
 ## Before DNS cutover
-1. Settle the release year for The Rivals of Amziah King. The site says 2027 (as instructed);
-   Jen's current live site and public sources say 2026. One of them is wrong in public.
-2. Parachute cast portraits were removed pending written clearance — re-add only once cleared.
+1. Release year settled: The Rivals of Amziah King opens August 14, 2026 (official site,
+   Wikipedia, exhibitor listings) — the site now says August 2026 everywhere.
+2. Parachute cast portraits are back in, per Viji's decision (Jen's own asset). Named cast
+   portraits on Rivals / God of the Woods are Wikimedia Commons photos (CC-licensed:
+   McConaughey TIFF 2025, Russell by Gage Skidmore, Hawke, Condon TIFF 2025) — replace with
+   Jen's or studio-supplied portraits when available.
 3. Disable GitHub Pages for this repo, so the preview cannot be indexed or linger.
 4. When repointing DNS, change only the web A / CNAME records. Leave MX and TXT records alone or
    Jen's email breaks.
 5. Smoke-test on a real iPhone in portrait *and* landscape before announcing.
 
 ## Content still owed by Jen
-- Confirm The Rivals of Amziah King release year (site says 2027; public sources said Aug 2026).
-- Parachute cast: names for the two portraits, and whether the casting may be shown publicly.
-- Tell Me a Secret: the two cast portraits.
+- Parachute: names for the two cast portraits, and the director once announced.
+- Tell Me a Secret: cast portraits + names (nothing public/verifiable exists yet), and director.
 - About: a portrait of Jen and two lines of bio.
 - Verify the IMDb profile linked in the footer is hers.
