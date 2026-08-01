@@ -759,6 +759,10 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
 <script>
   const flat = location.search.includes('flat');
   if (flat) document.documentElement.classList.add('flat');
+  // palette.html preview links: ?accent=rrggbb re-tints the one accent colour
+  const accent = new URLSearchParams(location.search).get('accent');
+  if (accent && /^[0-9a-f]{6}$/i.test(accent))
+    document.documentElement.style.setProperty('--amber', '#' + accent);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = s => document.querySelector(s);
 

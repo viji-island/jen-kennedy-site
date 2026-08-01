@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f0e0c">
+<title>Accent studies — Jen Kennedy</title>
+<style>
+  @font-face{font-family:'Fraunces';font-style:normal;font-weight:100 600;font-display:swap;src:url(assets/fonts/fraunces-normal-latin.woff2) format('woff2')}
+  @font-face{font-family:'Fraunces';font-style:italic;font-weight:100 600;font-display:swap;src:url(assets/fonts/fraunces-italic-latin.woff2) format('woff2')}
+  @font-face{font-family:'Fragment Mono';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/fragment-mono-normal-latin.woff2) format('woff2')}
+  :root{--bg:#0f0e0c;--bg-2:#141310;--ink:#eae5da;--ink-dim:#938d80;--hair:#2b2822;
+        --serif:"Fraunces",Georgia,serif;--mono:"Fragment Mono",monospace}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-weight:340;-webkit-font-smoothing:antialiased}
+  .mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+
+  .head{padding:64px 40px 8px;max-width:1280px;margin:0 auto}
+  .head h1{font-size:clamp(30px,3.6vw,50px);font-weight:260}
+  .head h1 em{font-style:italic}
+  .head p{color:var(--ink-dim);margin-top:12px;max-width:640px;font-size:15px;line-height:1.65}
+  .head p b{color:var(--ink);font-weight:400}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:36px 40px 90px;max-width:1280px;margin:0 auto}
+  .card{border:1px solid var(--hair);background:var(--bg-2);padding:26px 26px 22px;display:flex;flex-direction:column;gap:18px}
+  .card.current{outline:1px solid var(--a);outline-offset:-1px}
+
+  .c-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+  .c-name{display:flex;align-items:center;gap:12px}
+  .c-name .dot{width:14px;height:14px;border-radius:50%;background:var(--a);flex:none}
+  .c-name h2{font-size:24px;font-weight:300}
+  .c-name h2 em{font-style:italic}
+  .c-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--ink-dim);text-transform:uppercase;text-align:right}
+
+  /* mini hero in context */
+  .c-hero{position:relative;aspect-ratio:21/8;overflow:hidden;background:#000}
+  .c-hero img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+  .c-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(15,14,12,0) 40%,rgba(15,14,12,.88) 100%)}
+  .c-hero .cap{position:absolute;z-index:2;left:16px;bottom:12px;right:16px}
+  .c-hero .eyebrow{color:var(--a);display:block;margin-bottom:6px;font-size:9px}
+  .c-hero .t{font-size:22px;font-weight:280;line-height:1.05}
+  .c-hero .t em{font-style:italic}
+
+  /* mini index row in its hover/open state */
+  .c-row{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:baseline;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:14px 0}
+  .c-row .no{font-family:var(--mono);font-size:10px;color:var(--a);letter-spacing:.1em}
+  .c-row .title{font-size:21px;font-weight:280;color:var(--a);font-style:italic}
+  .c-row .studio{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--ink);text-transform:uppercase}
+  .c-honor{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+  .c-honor b{color:var(--a);font-weight:400}
+
+  /* drawn rule + link */
+  .c-rule{height:1px;background:var(--hair);position:relative;overflow:hidden}
+  .c-rule::after{content:"";position:absolute;inset:0;background:var(--a);transform:scaleX(.62);transform-origin:left}
+  .c-go{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;transition:color .3s;align-self:flex-start}
+  .c-go:hover{color:var(--a)}
+  .c-go .tri{display:inline-block;width:0;height:0;border-left:6px solid var(--a);border-top:4px solid transparent;border-bottom:4px solid transparent;margin-right:8px}
+
+  .note{max-width:1280px;margin:0 auto;padding:0 40px 80px;color:var(--ink-dim);font-size:14px;line-height:1.7}
+  .note b{color:var(--ink);font-weight:400}
+
+  @media (max-width:900px){
+    .head{padding:44px 20px 0}
+    .grid{grid-template-columns:1fr;padding:28px 20px 60px}
+    .note{padding:0 20px 60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Accent <em>studies</em></h1>
+  <p>Seven ways to colour the site's one accent — the small caps, the drawn rules, the hover
+    states, the Emmy note. Everything else stays exactly as it is: warm black, ivory type.
+    <b>Tap "see it on the full site" under any card to preview the entire site wearing that colour.</b></p>
+</div>
+
+<div class="grid">
+
+  <div class="card current" style="--a:#d9a441">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Amber <em>(current)</em></h2></div>
+      <div class="c-meta">#D9A441</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=d9a441"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#cfba92">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Champagne</h2></div>
+      <div class="c-meta">#CFBA92</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=cfba92"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#c9766b">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Oxblood <em>rose</em></h2></div>
+      <div class="c-meta">#C9766B</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=c9766b"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#d8a49b">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Antique <em>blush</em></h2></div>
+      <div class="c-meta">#D8A49B</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=d8a49b"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#8fb8ab">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Verdigris</h2></div>
+      <div class="c-meta">#8FB8AB</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=8fb8ab"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#a9b8a0">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Eucalyptus</h2></div>
+      <div class="c-meta">#A9B8A0</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=a9b8a0"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#9fb3c8">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Slate <em>blue</em></h2></div>
+      <div class="c-meta">#9FB3C8</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=9fb3c8"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+  <div class="card" style="--a:#f4efe4">
+    <div class="c-head">
+      <div class="c-name"><span class="dot"></span><h2>Ivory <em>(no colour)</em></h2></div>
+      <div class="c-meta">#F4EFE4</div>
+    </div>
+    <div class="c-hero"><img src="assets/rivals-night-2.jpg" alt="">
+      <div class="cap"><span class="mono eyebrow">Costume Design — Feature Film</span>
+      <div class="t">The Rivals of <em>Amziah King</em></div></div></div>
+    <div class="c-row"><span class="no">01</span><span class="title">His &amp; Hers</span><span class="studio">Netflix / Fifth Season</span></div>
+    <div class="c-honor">Apple TV+ · <b>Emmy-nominated</b></div>
+    <div class="c-rule"></div>
+    <a class="c-go" href="index.html?accent=f4efe4"><span class="tri"></span>See it on the full site</a>
+  </div>
+
+</div>
+
+<div class="note">
+  <b>How to read these:</b> the colour only ever appears in small doses — tiny caps, one rule,
+  a hover, one honour line. So judge the whisper, not the swatch. All options pass accessibility
+  contrast on this background. Champagne is the quiet evolution of the current amber; oxblood
+  and blush lean costume-house; verdigris and eucalyptus pick up the film stills' landscapes;
+  slate reads editorial; ivory is the severe fashion answer — no colour at all, letting the
+  photography carry everything. — J&amp;V pick one, or say what's missing and we mix it.
+</div>
+
+</body>
+</html>
