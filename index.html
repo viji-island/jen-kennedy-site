@@ -29,7 +29,7 @@
 <script>/* preview hosts must not be indexed or outrank the real domain */
 if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost|127\.|192\.168\.)/.test(location.hostname)){
   var m=document.createElement('meta');m.name='robots';m.content='noindex,nofollow';document.head.appendChild(m);}</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230f0e0c'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' fill='%23d9a441' text-anchor='middle' font-style='italic'%3EJK%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230f0e0c'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' fill='%23cfba92' text-anchor='middle' font-style='italic'%3EJK%3C/text%3E%3C/svg%3E">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-normal-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fragment-mono-normal-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-italic-latin.woff2" crossorigin>
@@ -50,7 +50,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
     --ink:#eae5da;
     --ink-dim:#938d80;
     --hair:#2b2822;
-    --amber:#d9a441;
+    --amber:#cfba92;
     --serif:"Fraunces",Georgia,serif;
     --mono:"Fragment Mono",monospace;
   }
@@ -310,6 +310,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
   #work,#about,#contact{scroll-margin-top:96px}
   .row-wrap{scroll-margin-top:96px}
   [inert]{pointer-events:none}
+  [hidden]{display:none !important}
   .hero-index{background:none;border:0;cursor:pointer;font-family:var(--mono);font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;transition:color .3s}
   .hero-index:hover{color:var(--ink)}
@@ -439,7 +440,7 @@ if(!/(^|\.)jenkennedycostumedesign\.com$/.test(location.hostname)&&!/^(localhost
               <div class="fact"><span class="k">Release</span><span class="v">In cinemas August 14, 2026</span></div>
               <button class="trailer-link" data-yt="ygWCRqmH0Ts"><span class="tri"></span>Watch trailer</button>
               <div class="cast">
-                <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-mcconaughey.jpg" alt="Matthew McConaughey"></div><div class="nm">Matthew McConaughey</div></div>
+                <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-mcconaughey.jpg" style="transform:scale(1.35);transform-origin:50% 18%" alt="Matthew McConaughey"></div><div class="nm">Matthew McConaughey</div></div>
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-russell.jpg" alt="Kurt Russell"></div><div class="nm">Kurt Russell</div></div>
               </div>
             </div>
