@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jenkennedycostumedesign.com/sitemap.xml
+Sitemap: https://jenkennedy.co/sitemap.xml
