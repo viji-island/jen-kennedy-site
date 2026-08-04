@@ -213,8 +213,14 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   .row .no{font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.1em;transition:color .35s}
   .row-wrap:hover .no,.row-wrap.open .no{color:var(--amber)}
   .row .title{font-size:clamp(26px,2.4vw,38px);font-weight:300;line-height:1.05;letter-spacing:-.005em;transition:color .3s,transform .5s cubic-bezier(.2,.6,.2,1)}
+  .row .role{
+    display:inline-block;margin-left:12px;vertical-align:.38em;white-space:nowrap;
+    font-family:var(--mono);font-size:8.5px;line-height:1;letter-spacing:.16em;text-transform:uppercase;
+    font-style:normal;font-weight:400;color:var(--ink-dim);transition:color .3s;
+  }
   .row-wrap:not(.open):hover .title{transform:translateX(7px)}
   .row-wrap:hover .title,.row.demo-hover .title,.row-wrap.open .title{color:var(--amber);font-style:italic;font-weight:280}
+  .row-wrap:hover .role,.row.demo-hover .role,.row-wrap.open .role{color:rgba(207,176,122,.72)}
   .row .studio,.row .year{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
   .row .studio{color:var(--ink);font-size:12px}
   .row .year{text-align:right}
@@ -381,6 +387,13 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     #lightbox{padding:3vw}
   }
 
+  /* tablet: keep the title and its role together without squeezing the credit columns */
+  @media (min-width:761px) and (max-width:980px){
+    .row{grid-template-columns:42px minmax(0,1fr) 215px 54px;gap:16px}
+    .row .studio,.row .year{font-size:10px;letter-spacing:.1em}
+    .row .role{margin-left:9px;font-size:7.75px;letter-spacing:.14em}
+  }
+
   /* ---------- mobile ---------- */
   @media (max-width:760px){
     header{padding:18px max(20px,env(safe-area-inset-right)) 18px max(20px,env(safe-area-inset-left))}
@@ -398,6 +411,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     section{padding:0 20px}
     .row{grid-template-columns:34px 1fr;grid-template-rows:auto auto;row-gap:8px;padding:20px 0}
     .row .studio{grid-column:2}
+    .row .role{margin-left:8px;font-size:7.5px;letter-spacing:.13em;vertical-align:.42em}
     .row .year{display:none}
     .exp-grid{grid-template-columns:1fr;gap:26px;padding:4px 0 34px 34px}
     .exp-stills{grid-template-columns:1fr}
@@ -451,11 +465,11 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     <h1 class="reveal d2"><span id="h-title-inner"><span id="h-title">The Rivals of <em>Amziah King</em></span></span></h1>
     <div class="hero-meta reveal d3">
       <span class="mono credit" id="h-credit">Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026</span>
-      <button class="trailer-link" id="h-trailer" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
+      <button type="button" class="trailer-link" id="h-trailer" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
     </div>
   </div>
-  <button class="hero-index mono" id="h-next" aria-label="Next project">
-    <span class="num" id="h-num">01</span> / <span id="h-total">05</span>
+  <button type="button" class="hero-index mono" id="h-next" aria-label="Next project">
+    <span class="num" id="h-num">01</span> / <span id="h-total">06</span>
   </button>
 </div>
 
@@ -468,9 +482,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
 
   <div class="index demo">
     <div id="the-rivals-of-amziah-king" class="row-wrap open">
-      <button class="row" aria-expanded="true">
+      <button type="button" class="row" aria-expanded="true">
         <span class="no">01</span>
-        <span class="title">The Rivals of Amziah King</span>
+        <span class="title">The Rivals of Amziah King <span class="role">Designer</span></span>
         <span class="studio">Heyday / Black Bear</span>
         <span class="year">2026</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-amziah.jpg?v=1" alt=""></span>
@@ -483,7 +497,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Director</span><span class="v">Andrew Patterson</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Matthew McConaughey<br>Angelina LookingGlass · Kurt Russell</span></div>
               <div class="fact"><span class="k">Release</span><span class="v">In cinemas August 14, 2026</span></div>
-              <button class="trailer-link" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
               <div class="cast">
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-mcconaughey.jpg?v=2" alt="Matthew McConaughey"></div><div class="nm">Matthew McConaughey</div></div>
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-russell.jpg?v=2" alt="Kurt Russell"></div><div class="nm">Kurt Russell</div></div>
@@ -499,9 +513,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="the-god-of-the-woods" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">02</span>
-        <span class="title">The God of the Woods</span>
+        <span class="title">The God of the Woods <span class="role">Co-Designer</span></span>
         <span class="studio">Sony / Netflix</span>
         <span class="year">2027</span>
         <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/gow-cast.jpg?v=2" alt=""></span>
@@ -526,9 +540,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="tell-me-a-secret" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">03</span>
-        <span class="title">Tell Me a Secret</span>
+        <span class="title">Tell Me a Secret <span class="role">Designer</span></span>
         <span class="studio">Sundance Lab</span>
         <span class="year">2027</span>
         <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/tell-me-a-secret.jpg?v=2" alt=""></span>
@@ -555,9 +569,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="parachute" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">04</span>
-        <span class="title">Parachute</span>
+        <span class="title">Parachute <span class="role">Designer</span></span>
         <span class="studio">Independent</span>
         <span class="year">2027</span>
         <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg?v=2" alt=""></span>
@@ -582,9 +596,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="i-dont-understand-you" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">05</span>
-        <span class="title">I Don’t Understand You</span>
+        <span class="title">I Don’t Understand You <span class="role">Designer</span></span>
         <span class="studio">Hulu / Vertical</span>
         <span class="year">2024</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-iduy.jpg?v=1" alt=""></span>
@@ -596,7 +610,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Role</span><span class="v">Costume Designer</span></div>
               <div class="fact"><span class="k">Directors</span><span class="v">David Joseph Craig · Brian Crano</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Nick Kroll · Andrew Rannells<br>Amanda Seyfried</span></div>
-              <button class="trailer-link" data-yt="fgXrFNeVwN4"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="fgXrFNeVwN4"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills">
               <figure><img loading="lazy" decoding="async" data-src="assets/iduy-street.jpg?v=2" alt="Nick Kroll and Andrew Rannells walking an Italian street in autumn layers, I Don’t Understand You"></figure>
@@ -608,9 +622,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="stay-at-conder-beach" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">06</span>
-        <span class="title">Stay at Conder Beach</span>
+        <span class="title">Stay at Conder Beach <span class="role">Designer</span></span>
         <span class="studio">Greyshack</span>
         <span class="year">2025</span>
         <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/conder-beach.jpg?v=2" alt=""></span>
@@ -633,9 +647,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="his-and-hers" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">07</span>
-        <span class="title">His &amp; Hers</span>
+        <span class="title">His &amp; Hers <span class="role">Assistant Designer</span></span>
         <span class="studio">Netflix / Fifth Season</span>
         <span class="year">2026</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-his-hers.jpg?v=1" alt=""></span>
@@ -647,7 +661,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Director</span><span class="v">William Oldroyd</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Tessa Thompson · Jon Bernthal</span></div>
-              <button class="trailer-link" data-yt="8_szlvBLll0"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="8_szlvBLll0"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills his-hers-media">
               <figure><img loading="lazy" decoding="async" data-src="assets/hisher-1.jpg?v=2" alt="A woman in a red wool suit and orange turtleneck seated at a desk, His &amp; Hers"></figure>
@@ -660,9 +674,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="lessons-in-chemistry" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">08</span>
-        <span class="title">Lessons in Chemistry</span>
+        <span class="title">Lessons in Chemistry <span class="role">Assistant Designer</span></span>
         <span class="studio">Apple TV+ · <span class="honor">Emmy-nominated</span></span>
         <span class="year">2023</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-lessons.jpg?v=1" alt=""></span>
@@ -674,7 +688,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Honors</span><span class="v hl">Emmy-nominated — Outstanding Period Costumes</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Brie Larson</span></div>
-              <button class="trailer-link" data-yt="-1PuK8mxASE"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="-1PuK8mxASE"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/lessons.jpg?v=2" alt="Brie Larson in a belted 1950s dress in a pastel kitchen, Lessons in Chemistry"></figure>
@@ -685,9 +699,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="the-burial" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">09</span>
-        <span class="title">The Burial</span>
+        <span class="title">The Burial <span class="role">Assistant Designer</span></span>
         <span class="studio">Amazon MGM</span>
         <span class="year">2023</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-burial.jpg?v=1" alt=""></span>
@@ -698,7 +712,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Jamie Foxx · Tommy Lee Jones</span></div>
-              <button class="trailer-link" data-yt="ZOhIdaufd3Q"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="ZOhIdaufd3Q"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/burial.jpg?v=2" alt="Jamie Foxx in a blue suit and Tommy Lee Jones in pinstripes seated on a staircase, The Burial"></figure>
@@ -709,9 +723,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="where-the-crawdads-sing" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">10</span>
-        <span class="title">Where the Crawdads Sing</span>
+        <span class="title">Where the Crawdads Sing <span class="role">Assistant Designer</span></span>
         <span class="studio">Columbia / Hello Sunshine</span>
         <span class="year">2022</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-crawdads.jpg?v=1" alt=""></span>
@@ -722,7 +736,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Daisy Edgar-Jones</span></div>
-              <button class="trailer-link" data-yt="PY3808Iq0Tg"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="PY3808Iq0Tg"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/crawdads.jpg?v=2" alt="Period costume still from Where the Crawdads Sing"></figure>
@@ -733,9 +747,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     </div>
 
     <div id="the-girl-from-plainville" class="row-wrap">
-      <button class="row" aria-expanded="false">
+      <button type="button" class="row" aria-expanded="false">
         <span class="no">11</span>
-        <span class="title">The Girl from Plainville</span>
+        <span class="title">The Girl from Plainville <span class="role">Assistant Designer</span></span>
         <span class="studio">Hulu / UCP</span>
         <span class="year">2022</span>
         <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-plainville.jpg?v=1" alt=""></span>
@@ -746,7 +760,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Elle Fanning · Chloë Sevigny</span></div>
-              <button class="trailer-link" data-yt="B-RadqZ-A3o"><span class="tri"></span>Watch trailer</button>
+              <button type="button" class="trailer-link" data-yt="B-RadqZ-A3o"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills plainville-media">
               <figure><img loading="lazy" decoding="async" data-src="assets/plainville.jpg?v=2" alt="Elle Fanning and Chloë Sevigny in dark dresses, The Girl from Plainville"></figure>

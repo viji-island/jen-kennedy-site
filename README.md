@@ -55,7 +55,9 @@ afterwards — the domain registration is a separate product and survives.
 5. Smoke-test on a real iPhone in portrait *and* landscape before announcing.
 
 ## Content still owed by Jen
-- Parachute: names for the two cast portraits, and the director once announced.
-- Tell Me a Secret: cast portraits + names (nothing public/verifiable exists yet), and director.
-- About: a portrait of Jen and two lines of bio.
-- Verify the IMDb profile linked in the footer is hers.
+- About: a portrait of Jen and two lines of approved bio, if she wants an About section.
+- Tell Me a Secret: a studio-approved portrait for Ava Lalezarzadeh when available; the public
+  cast names and director are already listed.
+
+The footer IMDb profile (`nm7382595`) was verified against its overlapping costume-design and
+assistant-costume-design credits on August 4, 2026.
