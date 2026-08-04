@@ -263,6 +263,8 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   .exp-stills figure:hover img{transform:scale(1.025)}
   .exp-stills.single{grid-template-columns:1fr}
   .exp-stills.single img{aspect-ratio:21/9}
+  .exp-stills.his-hers-media{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .row-wrap.open .his-hers-media figure:nth-child(3){transition-delay:.46s}
   .exp-stills.plainville-media{grid-template-columns:1fr}
   .exp-stills.plainville-media .poster-figure{max-width:260px;justify-self:start}
   .exp-stills.plainville-media .poster-figure img{aspect-ratio:2/3}
@@ -399,6 +401,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     .row .year{display:none}
     .exp-grid{grid-template-columns:1fr;gap:26px;padding:4px 0 34px 34px}
     .exp-stills{grid-template-columns:1fr}
+    .exp-stills.his-hers-media{grid-template-columns:1fr}
     .exp-stills.plainville-media .poster-figure{max-width:240px}
     .about{padding:110px 20px 0}
     .about .aff{gap:10px;flex-direction:column}
@@ -646,9 +649,10 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Starring</span><span class="v">Tessa Thompson · Jon Bernthal</span></div>
               <button class="trailer-link" data-yt="8_szlvBLll0"><span class="tri"></span>Watch trailer</button>
             </div>
-            <div class="exp-stills">
-              <figure><img loading="lazy" decoding="async" data-src="assets/hisher-1.jpg?v=2" alt="An actor in a red wool suit and orange turtleneck seated at a desk, His and Hers"></figure>
-              <figure><img loading="lazy" decoding="async" data-src="assets/hisher-2.jpg?v=2" alt="A detective in a navy field jacket walking a wooded crime scene, His and Hers"></figure>
+            <div class="exp-stills his-hers-media">
+              <figure><img loading="lazy" decoding="async" data-src="assets/hisher-1.jpg?v=2" alt="A woman in a red wool suit and orange turtleneck seated at a desk, His &amp; Hers"></figure>
+              <figure><img loading="lazy" decoding="async" data-src="assets/hisher-green.jpg?v=1" alt="A woman in a green leather coat standing among display cases, His &amp; Hers"></figure>
+              <figure><img loading="lazy" decoding="async" data-src="assets/hisher-couple.jpg?v=1" alt="A man and woman seated opposite one another beside glass doors, His &amp; Hers"></figure>
             </div>
           </div>
         </div>
@@ -806,6 +810,10 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
      credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
     {img:'assets/rivals-russell.jpg?v=3', pos:'70% 50%', posM:'84% 48%', yt:'GwSvAyaMGMo',
      alt:'Kurt Russell in aviator sunglasses and a striped shirt seated beside a cowboy hat at an indoor gathering',
+     eyebrow:'Costume Design — Feature Film', title:'The Rivals of <em>Amziah King</em>',
+     credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
+    {img:'assets/rivals-workbench.jpg?v=1', pos:'55% 50%', posM:'39% 42%', yt:'GwSvAyaMGMo',
+     alt:'Matthew McConaughey in a white shirt and bandana leaning over a wooden workbench',
      eyebrow:'Costume Design — Feature Film', title:'The Rivals of <em>Amziah King</em>',
      credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
     {img:'assets/iduy-street.jpg?v=2', pos:'center 42%', posM:'66% 42%', yt:'fgXrFNeVwN4',
