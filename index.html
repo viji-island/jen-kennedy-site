@@ -9,7 +9,7 @@
 <meta name="description" content="Jen Kennedy — costume designer for film and television. The Rivals of Amziah King, The God of the Woods, His &amp; Hers, Lessons in Chemistry. Member, Costume Designers Guild. LA + NYC.">
 <meta property="og:title" content="Jen Kennedy — Costume Design">
 <meta property="og:description" content="Costume design for film and television — from independent features to Emmy-nominated studio series.">
-<meta property="og:image" content="https://jenkennedy.co/assets/rivals-night-2.jpg?v=2">
+<meta property="og:image" content="https://jenkennedy.co/assets/rivals-night-2.jpg?v=3">
 <meta property="og:image:alt" content="Matthew McConaughey at a roadside gas station at night in The Rivals of Amziah King">
 <meta property="og:url" content="https://jenkennedy.co/">
 <meta property="og:type" content="profile">
@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Jen Kennedy — Costume Design">
 <meta name="twitter:description" content="Costume design for film and television — from independent features to Emmy-nominated studio series.">
-<meta name="twitter:image" content="https://jenkennedy.co/assets/rivals-night-2.jpg?v=2">
+<meta name="twitter:image" content="https://jenkennedy.co/assets/rivals-night-2.jpg?v=3">
 <link rel="canonical" href="https://jenkennedy.co/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Jen Kennedy","jobTitle":"Costume Designer",
@@ -33,7 +33,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-normal-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fragment-mono-normal-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-italic-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="assets/rivals-night-2.jpg?v=2" fetchpriority="high">
+<link rel="preload" as="image" href="assets/rivals-night-2.jpg?v=3" fetchpriority="high">
 <style>
   @font-face{font-family:'Fragment Mono';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/fragment-mono-italic-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
   @font-face{font-family:'Fragment Mono';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/fragment-mono-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -159,6 +159,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   .trailer-link .tri{width:0;height:0;border-left:7px solid var(--amber);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;transition:transform .3s}
   .trailer-link:hover{color:var(--amber)}
   .trailer-link:hover .tri{transform:scale(1.25)}
+  .trailer-link:disabled{color:var(--ink-dim);cursor:default;opacity:.62}
+  .trailer-link:disabled .tri{border-left-color:var(--ink-dim)}
+  .trailer-link:disabled:hover .tri{transform:none}
   .hero-index{position:absolute;z-index:2;right:40px;bottom:56px;color:var(--ink-dim);text-align:right}
   .hero-index .num{color:var(--ink)}
   .reveal{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.6,.2,1) forwards;animation-delay:1.45s}
@@ -219,13 +222,14 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
 
   /* floating preview on hover (desktop only) */
   .peek{
-    position:absolute;z-index:5;left:47%;transform-origin:center;top:50%;
-    width:470px;aspect-ratio:16/10;pointer-events:none;
+    position:fixed;z-index:40;left:50%;transform-origin:center;top:50%;
+    width:clamp(220px,20vw,290px);aspect-ratio:2/3;pointer-events:none;
     opacity:0;transform:translate(-50%,-46%) rotate(.6deg) scale(.97);
     transition:opacity .35s,transform .45s cubic-bezier(.2,.6,.2,1);
-    box-shadow:0 30px 80px rgba(0,0,0,.65);
+    background:var(--bg-2);box-shadow:0 30px 80px rgba(0,0,0,.65);
   }
-  .peek img{width:100%;height:100%;object-fit:cover;filter:saturate(.96)}
+  .peek.peek-still{width:min(470px,36vw);aspect-ratio:16/10}
+  .peek img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.96)}
   .row-wrap:not(.open):hover .peek,.index.demo .row.demo-hover .peek{opacity:1;transform:translate(-50%,-50%) rotate(0) scale(1)}
 
   /* ---------- expansion panel (soft unfold) ---------- */
@@ -259,6 +263,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   .exp-stills figure:hover img{transform:scale(1.025)}
   .exp-stills.single{grid-template-columns:1fr}
   .exp-stills.single img{aspect-ratio:21/9}
+  .exp-stills.plainville-media{grid-template-columns:1fr}
+  .exp-stills.plainville-media .poster-figure{max-width:260px;justify-self:start}
+  .exp-stills.plainville-media .poster-figure img{aspect-ratio:2/3}
 
   /* cast cards — uniform duotone portraits, credits not paparazzi */
   .cast{display:flex;gap:14px;align-content:start;flex-wrap:wrap}
@@ -392,6 +399,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     .row .year{display:none}
     .exp-grid{grid-template-columns:1fr;gap:26px;padding:4px 0 34px 34px}
     .exp-stills{grid-template-columns:1fr}
+    .exp-stills.plainville-media .poster-figure{max-width:240px}
     .about{padding:110px 20px 0}
     .about .aff{gap:10px;flex-direction:column}
     footer{padding:54px 20px 40px;margin-top:110px}
@@ -432,15 +440,15 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
 
 <!-- HERO -->
 <div class="hero" id="hero">
-  <div class="hslide active"><img src="assets/rivals-night-2.jpg?v=2" fetchpriority="high"
-       style="--pos:center 22%;--posM:56% 22%"
+  <div class="hslide active"><img src="assets/rivals-night-2.jpg?v=3" fetchpriority="high"
+       style="--pos:64% 50%;--posM:68% 50%"
        alt="Matthew McConaughey in aged workwear beside a pickup truck at a gas station at night"></div>
   <div class="hero-caption">
     <span class="mono eyebrow reveal d1" id="h-eyebrow">Costume Design — Feature Film</span>
     <h1 class="reveal d2"><span id="h-title-inner"><span id="h-title">The Rivals of <em>Amziah King</em></span></span></h1>
     <div class="hero-meta reveal d3">
       <span class="mono credit" id="h-credit">Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026</span>
-      <button class="trailer-link" id="h-trailer" data-yt="ygWCRqmH0Ts"><span class="tri"></span>Watch trailer</button>
+      <button class="trailer-link" id="h-trailer" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
     </div>
   </div>
   <button class="hero-index mono" id="h-next" aria-label="Next project">
@@ -462,6 +470,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">The Rivals of Amziah King</span>
         <span class="studio">Heyday / Black Bear</span>
         <span class="year">2026</span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-amziah.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -471,7 +480,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Director</span><span class="v">Andrew Patterson</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Matthew McConaughey<br>Angelina LookingGlass · Kurt Russell</span></div>
               <div class="fact"><span class="k">Release</span><span class="v">In cinemas August 14, 2026</span></div>
-              <button class="trailer-link" data-yt="ygWCRqmH0Ts"><span class="tri"></span>Watch trailer</button>
+              <button class="trailer-link" data-yt="GwSvAyaMGMo"><span class="tri"></span>Watch trailer</button>
               <div class="cast">
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-mcconaughey.jpg?v=2" alt="Matthew McConaughey"></div><div class="nm">Matthew McConaughey</div></div>
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-russell.jpg?v=2" alt="Kurt Russell"></div><div class="nm">Kurt Russell</div></div>
@@ -492,6 +501,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">The God of the Woods</span>
         <span class="studio">Sony / Netflix</span>
         <span class="year">2027</span>
+        <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/gow-cast.jpg?v=2" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -501,6 +511,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Showrunners</span><span class="v">Liz Moore · Liz Hannah</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Maya Hawke · Kerry Condon</span></div>
               <div class="fact"><span class="k">Status</span><span class="v">In production — Netflix limited series</span></div>
+              <button class="trailer-link" type="button" disabled><span class="tri"></span>Trailer forthcoming</button>
             </div>
             <div class="cast">
               <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-hawke.jpg?v=2" alt="Maya Hawke"></div><div class="nm">Maya Hawke</div></div>
@@ -517,6 +528,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">Tell Me a Secret</span>
         <span class="studio">Sundance Lab</span>
         <span class="year">2027</span>
+        <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/tell-me-a-secret.jpg?v=2" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -526,6 +538,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Director</span><span class="v">Montana Mann</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Willa Fitzgerald<br>Ava Lalezarzadeh</span></div>
               <div class="fact"><span class="k">Status</span><span class="v">In production</span></div>
+              <button class="trailer-link" type="button" disabled><span class="tri"></span>Trailer forthcoming</button>
               <div class="cast">
                 <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/cast-fitzgerald.jpg?v=2" alt="Willa Fitzgerald"></div><div class="nm">Willa Fitzgerald</div></div>
               </div>
@@ -536,7 +549,6 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
           </div>
         </div>
       </div>
-      <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/tell-me-a-secret.jpg?v=2" alt="A face reflected upside down in still water among yellow wildflowers, Tell Me a Secret"></span>
     </div>
 
     <div id="parachute" class="row-wrap">
@@ -545,6 +557,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">Parachute</span>
         <span class="studio">Independent</span>
         <span class="year">2027</span>
+        <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg?v=2" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -554,6 +567,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Director</span><span class="v">Annie Silverstein</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Emma D’Arcy · Haley Bennett</span></div>
               <div class="fact"><span class="k">Status</span><span class="v">In production</span></div>
+              <button class="trailer-link" type="button" disabled><span class="tri"></span>Trailer forthcoming</button>
             </div>
             <div class="cast">
               <div class="card"><div class="ph"><img loading="lazy" decoding="async" data-src="assets/parachute-cast.jpg?v=2" style="object-position:16% 18%" alt="Haley Bennett"></div><div class="nm">Haley Bennett</div></div>
@@ -570,7 +584,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">I Don’t Understand You</span>
         <span class="studio">Hulu / Vertical</span>
         <span class="year">2024</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/iduy-street.jpg?v=2" alt="Nick Kroll and Andrew Rannells walking an Italian street in autumn layers, I Don’t Understand You"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-iduy.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -596,7 +610,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">Stay at Conder Beach</span>
         <span class="studio">Greyshack</span>
         <span class="year">2025</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/conder-beach.jpg?v=2" alt="A man lying on a workbench in warm afternoon light, Stay at Conder Beach"></span>
+        <span class="peek peek-still" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/conder-beach.jpg?v=2" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -605,6 +619,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Role</span><span class="v">Costume Designer</span></div>
               <div class="fact"><span class="k">Director</span><span class="v">Aaron Khandros</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Joseph Cross · Annabeth Gish</span></div>
+              <button class="trailer-link" type="button" disabled><span class="tri"></span>Trailer forthcoming</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/conder-beach.jpg?v=2" alt="A man lying on a workbench in warm afternoon light, Stay at Conder Beach"></figure>
@@ -620,7 +635,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">His &amp; Hers</span>
         <span class="studio">Netflix / Fifth Season</span>
         <span class="year">2026</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/hisher-3.jpg?v=2" alt="Tessa Thompson in a teal patterned blouse holding a camcorder, His and Hers"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-his-hers.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -629,7 +644,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Director</span><span class="v">William Oldroyd</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Tessa Thompson · Jon Bernthal</span></div>
-              <button class="trailer-link" data-yt="tdf4bU58OzQ"><span class="tri"></span>Watch trailer</button>
+              <button class="trailer-link" data-yt="8_szlvBLll0"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills">
               <figure><img loading="lazy" decoding="async" data-src="assets/hisher-1.jpg?v=2" alt="An actor in a red wool suit and orange turtleneck seated at a desk, His and Hers"></figure>
@@ -646,7 +661,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">Lessons in Chemistry</span>
         <span class="studio">Apple TV+ · <span class="honor">Emmy-nominated</span></span>
         <span class="year">2023</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/lessons.jpg?v=2" alt="Brie Larson in a belted 1950s dress in a pastel kitchen, Lessons in Chemistry"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-lessons.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -655,6 +670,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Honors</span><span class="v hl">Emmy-nominated — Outstanding Period Costumes</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Brie Larson</span></div>
+              <button class="trailer-link" data-yt="-1PuK8mxASE"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/lessons.jpg?v=2" alt="Brie Larson in a belted 1950s dress in a pastel kitchen, Lessons in Chemistry"></figure>
@@ -670,7 +686,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">The Burial</span>
         <span class="studio">Amazon MGM</span>
         <span class="year">2023</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/burial.jpg?v=2" alt="Jamie Foxx in a blue suit and Tommy Lee Jones in pinstripes seated on a staircase, The Burial"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-burial.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -678,6 +694,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Jamie Foxx · Tommy Lee Jones</span></div>
+              <button class="trailer-link" data-yt="ZOhIdaufd3Q"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/burial.jpg?v=2" alt="Jamie Foxx in a blue suit and Tommy Lee Jones in pinstripes seated on a staircase, The Burial"></figure>
@@ -693,7 +710,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">Where the Crawdads Sing</span>
         <span class="studio">Columbia / Hello Sunshine</span>
         <span class="year">2022</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/crawdads.jpg?v=2" alt="Period costume still from Where the Crawdads Sing"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-crawdads.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -701,6 +718,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Daisy Edgar-Jones</span></div>
+              <button class="trailer-link" data-yt="PY3808Iq0Tg"><span class="tri"></span>Watch trailer</button>
             </div>
             <div class="exp-stills single">
               <figure><img loading="lazy" decoding="async" data-src="assets/crawdads.jpg?v=2" alt="Period costume still from Where the Crawdads Sing"></figure>
@@ -716,7 +734,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
         <span class="title">The Girl from Plainville</span>
         <span class="studio">Hulu / UCP</span>
         <span class="year">2022</span>
-        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/plainville.jpg?v=2" alt="Elle Fanning and Chloë Sevigny in dark dresses, The Girl from Plainville"></span>
+        <span class="peek" aria-hidden="true"><img loading="lazy" decoding="async" data-src="assets/poster-plainville.jpg?v=1" alt=""></span>
       </button>
       <div class="exp">
         <div class="exp-inner">
@@ -724,9 +742,11 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
             <div class="facts">
               <div class="fact"><span class="k">Credit</span><span class="v">Assistant Costume Designer<br>to Mirren Gordon-Crozier</span></div>
               <div class="fact"><span class="k">Starring</span><span class="v">Elle Fanning · Chloë Sevigny</span></div>
+              <button class="trailer-link" data-yt="B-RadqZ-A3o"><span class="tri"></span>Watch trailer</button>
             </div>
-            <div class="exp-stills single">
+            <div class="exp-stills plainville-media">
               <figure><img loading="lazy" decoding="async" data-src="assets/plainville.jpg?v=2" alt="Elle Fanning and Chloë Sevigny in dark dresses, The Girl from Plainville"></figure>
+              <figure class="poster-figure"><img loading="lazy" decoding="async" data-src="assets/poster-plainville.jpg?v=1" alt="The Girl from Plainville poster featuring Elle Fanning"></figure>
             </div>
           </div>
         </div>
@@ -780,12 +800,12 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
 
   /* ---------- hero carousel: dissolve & drift ---------- */
   const HERO = [
-    {img:'assets/rivals-night-2.jpg?v=2', pos:'center 22%', posM:'56% 22%', yt:'ygWCRqmH0Ts',
+    {img:'assets/rivals-night-2.jpg?v=3', pos:'64% 50%', posM:'68% 50%', yt:'GwSvAyaMGMo',
      alt:'Matthew McConaughey in aged workwear beside a pickup truck at a gas station at night',
      eyebrow:'Costume Design — Feature Film', title:'The Rivals of <em>Amziah King</em>',
      credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
-    {img:'assets/rivals-russell.jpg?v=2', pos:'center 30%', posM:'74% 30%', yt:'ygWCRqmH0Ts',
-     alt:'Kurt Russell in a striped short-sleeve shirt and western boots, lounging beside a cowboy hat',
+    {img:'assets/rivals-russell.jpg?v=3', pos:'70% 50%', posM:'84% 48%', yt:'GwSvAyaMGMo',
+     alt:'Kurt Russell in aviator sunglasses and a striped shirt seated beside a cowboy hat at an indoor gathering',
      eyebrow:'Costume Design — Feature Film', title:'The Rivals of <em>Amziah King</em>',
      credit:'Heyday · Black Bear&nbsp;&nbsp;—&nbsp;&nbsp;In cinemas August 2026'},
     {img:'assets/iduy-street.jpg?v=2', pos:'center 42%', posM:'66% 42%', yt:'fgXrFNeVwN4',
