@@ -6,9 +6,17 @@ no third-party requests (fonts are self-hosted; YouTube loads only when a traile
 ## Local preview
     python3 -m http.server 8080     # then open http://localhost:8080
 
-## Live preview
-https://viji-island.github.io/jen-kennedy-site/ — shareable anywhere, auto-updates on push.
-Preview hosts inject `noindex` at runtime so they can never outrank the real domain.
+## LIVE: https://jenkennedy.co
+Cloudflare Pages, project `jen-kennedy`, on Jen's Cloudflare account (which also holds the
+domain registration). Deploy updates with:
+    cd /tmp && rm -rf jen-dist && mkdir jen-dist && cd ~/Documents/Code/jen-kennedy-site && \
+    cp -R index.html 404.html robots.txt sitemap.xml _headers palette.html assets /tmp/jen-dist/ && \
+    cd /tmp/jen-dist && npx wrangler pages deploy . --project-name jen-kennedy --branch main
+(wrangler is OAuth-authed as jenkennedycostumes@gmail.com; revoke in Cloudflare profile if needed.)
+
+Preview mirror: https://viji-island.github.io/jen-kennedy-site/ — auto-updates on push;
+injects `noindex` at runtime so it can never outrank the real domain. Disable GitHub Pages
+once Jen blesses the live site.
 
 ## Deploy
 - **Netlify Free** (recommended): `netlify.toml` sets caching + security headers. Netlify's Free
