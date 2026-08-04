@@ -117,7 +117,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     background:linear-gradient(rgba(15,14,12,.55),transparent);
     transition:background .4s;
   }
-  header.scrolled{background:rgba(15,14,12,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+  /* A nearly opaque bar reads the same as blur here, without forcing Safari to
+     repaint the page through a fixed backdrop-filter on every scroll frame. */
+  header.scrolled{background:rgba(15,14,12,.94);border-bottom:1px solid var(--hair)}
   .wordmark{font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);text-decoration:none}
   nav{display:flex;gap:34px}
   nav a{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(234,229,218,.68);text-decoration:none;text-shadow:0 1px 14px rgba(15,14,12,.6);transition:color .3s;position:relative}
@@ -225,7 +227,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   .row-wrap:not(.open):hover .peek,.index.demo .row.demo-hover .peek{opacity:1;transform:translate(-50%,-50%) rotate(0) scale(1)}
 
   /* ---------- expansion panel (soft unfold) ---------- */
-  .exp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.6,.2,1)}
+  .exp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .56s cubic-bezier(.22,1,.36,1)}
   .row-wrap.open .exp{grid-template-rows:1fr}
   .fact,.exp .trailer-link{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.6,.2,1)}
   .row-wrap.open .fact:nth-child(1){transition-delay:.16s}
@@ -877,29 +879,79 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     const panel = wrap.querySelector('.exp');
     open ? panel.removeAttribute('inert') : panel.setAttribute('inert', '');
   }
+
+  /* Keep the selected row moving on one continuous path while the old panel
+     folds away and the new one opens. Previously the row could shoot above
+     the viewport, then scroll back only after the 550ms transition ended. */
+  let accordionRaf = 0, accordionRestore = null;
+  function stopAccordionMotion(){
+    if (accordionRaf) cancelAnimationFrame(accordionRaf);
+    accordionRaf = 0;
+    if (accordionRestore) accordionRestore();
+    accordionRestore = null;
+  }
+  function glideAccordionRow(wrap, startTop){
+    if (reduced) {
+      wrap.scrollIntoView({behavior:'auto', block:'start'});
+      return;
+    }
+    stopAccordionMotion();
+    const html = document.documentElement;
+    const oldScrollBehavior = html.style.scrollBehavior;
+    const oldOverflowAnchor = index.style.overflowAnchor;
+    html.style.scrollBehavior = 'auto';
+    index.style.overflowAnchor = 'none';
+    let restored = false;
+    accordionRestore = () => {
+      if (restored) return;
+      restored = true;
+      html.style.scrollBehavior = oldScrollBehavior;
+      index.style.overflowAnchor = oldOverflowAnchor;
+    };
+
+    const endTop = parseFloat(getComputedStyle(wrap).scrollMarginTop) || 96;
+    const duration = 560;
+    const started = performance.now();
+    const frame = now => {
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const desiredTop = startTop + (endTop - startTop) * eased;
+      const actualTop = wrap.getBoundingClientRect().top;
+      scrollBy(0, actualTop - desiredTop);
+
+      if (progress < 1) {
+        accordionRaf = requestAnimationFrame(frame);
+      } else {
+        scrollBy(0, wrap.getBoundingClientRect().top - endTop);
+        accordionRaf = 0;
+        const restore = accordionRestore;
+        accordionRestore = null;
+        restore();
+      }
+    };
+    accordionRaf = requestAnimationFrame(frame);
+  }
+  addEventListener('wheel', stopAccordionMotion, {passive:true});
+  addEventListener('touchstart', stopAccordionMotion, {passive:true});
+  const scrollKeys = new Set(['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' ']);
+  addEventListener('keydown', e => {
+    if (scrollKeys.has(e.key)) stopAccordionMotion();
+  });
+
   index.addEventListener('pointerover', () => index.classList.remove('demo'), {once:true});
   wraps.forEach(w => w.addEventListener('pointerenter', () => swapIn(w, true), {once:true}));
   wraps.forEach(wrap => wrap.querySelector('.row').addEventListener('click', e => {
     if (e.target.closest('.trailer-link')) return;
     index.classList.remove('demo');
     const wasOpen = wrap.classList.contains('open');
+    const startTop = wrap.getBoundingClientRect().top;
     wraps.filter(w => w.classList.contains('open')).forEach(w => setOpen(w, false));
     if (!wasOpen) {
       setOpen(wrap, true);
       if (wrap.id) history.replaceState(null, '', '#' + wrap.id);
-      // keep the opened project readable: once the panels finish animating
-      // (the one closing above shifts layout too), glide its title under the header
-      const settle = () => wrap.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
-      if (reduced) settle();
-      else {
-        const panel = wrap.querySelector('.exp');
-        let doneScroll = false;
-        const go = () => { if (doneScroll) return; doneScroll = true; panel.removeEventListener('transitionend', onEnd); settle(); };
-        const onEnd = e => { if (e.propertyName === 'grid-template-rows') go(); };
-        panel.addEventListener('transitionend', onEnd);
-        setTimeout(go, 650);
-      }
+      glideAccordionRow(wrap, startTop);
     } else if (location.hash) {
+      stopAccordionMotion();
       history.replaceState(null, '', location.pathname);
     }
   }));
