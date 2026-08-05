@@ -963,6 +963,14 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
           html.style.scrollBehavior = oldScrollBehavior;
         }
       }
+      accordionRaf = requestAnimationFrame(() => {
+        accordionRaf = 0;
+        if (!wrap.classList.contains('open')) return;
+        const endTop = parseFloat(getComputedStyle(wrap).scrollMarginTop) || 96;
+        if (Math.abs(wrap.getBoundingClientRect().top - endTop) > 3) {
+          wrap.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
       return;
     }
     const html = document.documentElement;
