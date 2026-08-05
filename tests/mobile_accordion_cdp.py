@@ -214,7 +214,7 @@ def begin_trace(cdp: CDP, element_id: str, duration_ms: int = 760):
 
 def finish_trace(cdp: CDP):
     cdp.eval("window.__accordionTracePromise")
-    return cdp.eval("({trace:window.__accordionTrace,before:window.__accordionTraceBefore,scrollByCalls:window.__accordionScrollBy,programmaticCalls:window.__accordionProgrammaticScroll})")
+    return cdp.eval("({trace:window.__accordionTrace,before:window.__accordionTraceBefore,scrollByCalls:window.__accordionScrollBy,programmaticCalls:window.__accordionProgrammaticScroll,scrollBehaviorAfter:{computed:getComputedStyle(document.documentElement).scrollBehavior,inline:document.documentElement.style.scrollBehavior}})")
 
 
 def open_and_trace(cdp: CDP, element_id: str):
@@ -234,6 +234,9 @@ def trace_summary(trace_result: dict):
         "durationMs": trace[-1]["t"] if trace else 0,
         "scrollByCalls": len(trace_result["scrollByCalls"]),
         "programmaticScrollCalls": len(trace_result["programmaticCalls"]),
+        "correctionBehaviors": [call["behavior"] for call in trace_result["scrollByCalls"]],
+        "correctionInlineBehaviors": [call["inlineBehavior"] for call in trace_result["scrollByCalls"]],
+        "scrollBehaviorAfter": trace_result["scrollBehaviorAfter"],
         "scrollYBeforeClick": before["scrollY"],
         "scrollYStart": scrolls[0] if scrolls else None,
         "scrollYEnd": scrolls[-1] if scrolls else None,
@@ -302,7 +305,8 @@ def main():
             window.__accordionProgrammaticScroll = [];
             window.scrollBy = (...args) => {
               const target = window.__accordionTraceTarget;
-              const call = {kind:'scrollBy', t:performance.now(), args, before:{scrollY, top:target ? target.getBoundingClientRect().top : null}};
+              const html = document.documentElement;
+              const call = {kind:'scrollBy', t:performance.now(), args, behavior:getComputedStyle(html).scrollBehavior, inlineBehavior:html.style.scrollBehavior, before:{scrollY, top:target ? target.getBoundingClientRect().top : null}};
               window.__accordionScrollBy.push(call); window.__accordionProgrammaticScroll.push(call);
               const result = originalScrollBy(...args);
               call.after = {scrollY, top:target ? target.getBoundingClientRect().top : null};
@@ -319,11 +323,15 @@ def main():
         report["hero"] = cdp.eval("({slides:document.querySelectorAll('.hero .hslide').length,total:document.getElementById('h-total').textContent})")
         report["hisAndHers"] = cdp.eval("(() => { const w=document.getElementById('his-and-hers'); return {figures:w.querySelectorAll('.his-hers-media figure').length,trailer:w.querySelector('.trailer-link').dataset.yt}; })()")
 
-        # Each target is tapped after another row is open; every trace exceeds the old 560 ms loop.
+        # Exercise the three rows that exhibited delayed correction in the iPhone recording.
         report["mobileTraces"] = {}
-        for row_id in ("the-god-of-the-woods", "tell-me-a-secret", "parachute"):
+        for row_id in ("i-dont-understand-you", "lessons-in-chemistry", "the-girl-from-plainville"):
             report["mobileTraces"][row_id] = trace_summary(open_and_trace(cdp, row_id))
         report["accordionState"] = cdp.eval("(() => { const wraps=[...document.querySelectorAll('.row-wrap')]; return {open:wraps.filter(w=>w.classList.contains('open')).map(w=>w.id),aria:wraps.map(w=>[w.id,w.querySelector('.row').getAttribute('aria-expanded')]),inert:wraps.map(w=>[w.id,w.querySelector('.exp').hasAttribute('inert')]),hash:location.hash}; })()")
+
+        # Capture the open mobile row before the touch-drag probe moves the viewport near the footer.
+        screenshot = cdp.call("Page.captureScreenshot", {"format": "png"})["data"]
+        SCREENSHOT.write_bytes(base64.b64decode(screenshot))
 
         # Real touch drag must scroll; the accordion's passive touchstart may observe it but cannot block it.
         cdp.eval("window.scrollTo(0, document.body.scrollHeight - innerHeight - 300)")
@@ -336,9 +344,6 @@ def main():
         cdp.call("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
         time.sleep(0.2)
         report["touchDragDelta"] = round(cdp.eval("scrollY") - before_drag, 2)
-
-        screenshot = cdp.call("Page.captureScreenshot", {"format": "png"})["data"]
-        SCREENSHOT.write_bytes(base64.b64decode(screenshot))
 
         # Desktop remains intentionally gliding.
         cdp.call("Emulation.setTouchEmulationEnabled", {"enabled": False})
@@ -380,11 +385,14 @@ def main():
         assert report["hisAndHers"] == {"figures": 3, "trailer": "8_szlvBLll0"}, "His & Hers media/trailer regression"
         assert all(trace["durationMs"] >= 700 for trace in report["mobileTraces"].values()), "mobile trace shorter than 700ms"
         assert all(trace["programmaticScrollCalls"] <= 1 for trace in report["mobileTraces"].values()), "mobile tap started multi-frame programmatic scroll feedback"
+        assert all(all(behavior != "smooth" for behavior in trace["correctionBehaviors"]) for trace in report["mobileTraces"].values()), "coarse accordion correction ran under global smooth scrolling"
+        assert all(trace["scrollBehaviorAfter"] == {"computed": "smooth", "inline": ""} for trace in report["mobileTraces"].values()), "coarse correction did not restore the global smooth-scroll style"
+        assert all(trace["scrollYRange"] == 0 for trace in report["mobileTraces"].values()), "mobile correction continued scrolling after its single synchronous call"
         assert all(trace["targetTopMaxDeviation"] <= TOP_STABILITY_TOLERANCE_PX for trace in report["mobileTraces"].values()), f"mobile tapped-row top moved by more than {TOP_STABILITY_TOLERANCE_PX}px after its synchronous correction"
         state = report["accordionState"]
-        assert state["open"] == ["parachute"] and state["hash"] == "#parachute", "one-open-row/hash regression"
-        assert all((expanded == "true") == (row_id == "parachute") for row_id, expanded in state["aria"]), "aria-expanded regression"
-        assert all((not inert) == (row_id == "parachute") for row_id, inert in state["inert"]), "inert regression"
+        assert state["open"] == ["the-girl-from-plainville"] and state["hash"] == "#the-girl-from-plainville", "one-open-row/hash regression"
+        assert all((expanded == "true") == (row_id == "the-girl-from-plainville") for row_id, expanded in state["aria"]), "aria-expanded regression"
+        assert all((not inert) == (row_id == "the-girl-from-plainville") for row_id, inert in state["inert"]), "inert regression"
         assert report["touchDragDelta"] > 50, "vertical touch gesture did not scroll"
         desktop = report["desktop"]
         assert not desktop["coarsePointer"], "desktop harness unexpectedly activated coarse-pointer media"

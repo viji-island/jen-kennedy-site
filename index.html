@@ -953,7 +953,16 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     stopAccordionMotion();
     if (coarsePointer.matches) {
       const delta = wrap.getBoundingClientRect().top - startTop;
-      if (Math.abs(delta) > .5) scrollBy(0, delta);
+      if (Math.abs(delta) > .5) {
+        const html = document.documentElement;
+        const oldScrollBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        try {
+          scrollBy(0, delta);
+        } finally {
+          html.style.scrollBehavior = oldScrollBehavior;
+        }
+      }
       return;
     }
     const html = document.documentElement;
