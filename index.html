@@ -374,6 +374,9 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
     .index:has(.row:hover) .row{opacity:1}
     .index.demo .row{opacity:1}
   }
+  @media (pointer:coarse){
+    .exp{transition:none}
+  }
 
   /* short viewports (landscape phones): the 620px hero minimum pushed the
      title and trailer link below the fold */
@@ -908,6 +911,7 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
   /* ---------- work index accordion ---------- */
   const index = $('.index');
   const wraps = [...document.querySelectorAll('.row-wrap')];
+  const coarsePointer = matchMedia('(pointer:coarse)');
   wraps.forEach((w, i) => {
     const panel = w.querySelector('.exp'), btn = w.querySelector('.row');
     panel.id = 'panel-' + (i + 1);
@@ -947,6 +951,11 @@ if(!/(^|\.)jenkennedy\.co$/.test(location.hostname)&&!/(^|\.)jenkennedycostumede
       return;
     }
     stopAccordionMotion();
+    if (coarsePointer.matches) {
+      const delta = wrap.getBoundingClientRect().top - startTop;
+      if (Math.abs(delta) > .5) scrollBy(0, delta);
+      return;
+    }
     const html = document.documentElement;
     const oldScrollBehavior = html.style.scrollBehavior;
     const oldOverflowAnchor = index.style.overflowAnchor;
